@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login/Login.jsx";
+import Register from "./pages/Register/Register.jsx";
+import Profile from "./pages/Profile.jsx";
+import { gettoken } from "./Localstorage/Store.jsx";
 
 function App() {
+  const tokenvalue = gettoken();
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes >
+        <Route path="/" element={tokenvalue ? <Home /> : <Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={tokenvalue ? <Profile /> : <Login />} />
+          </Routes>
     </div>
-  );
+  )
+
 }
 
 export default App;
